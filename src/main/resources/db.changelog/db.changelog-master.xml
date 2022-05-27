@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- Запускаем поочереди скрипты. Последовательность запуска важна, т.к. у таблиц есть зависимости -->
+
+    <!--<includeAll path="db.changelog/1.0"/>-->
+    <include file="db.changelog/1.0/20220526--0001-users.xml"/>
+    <include file="db.changelog/1.0/20220526--0001-roles.xml"/>
+    <include file="db.changelog/1.0/20220526--0003-object.xml"/>
+
+
+    <include file="db.changelog/data/20220526-0001-users-data.xml"/>
+
+</databaseChangeLog>

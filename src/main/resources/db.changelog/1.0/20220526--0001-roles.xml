@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="20220526--0001-roles" author="ymironov">
+
+        <!-- Проверяем нет ли уже таблицы с таким названием -->
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="roles"/>
+            </not>
+        </preConditions>
+
+        <!-- Создаем таблицу -->
+        <createTable tableName="roles">
+
+            <!-- Описываем колонки -->
+            <column name="id"
+                    type="NUMERIC(19,0)"
+                    autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+    <changeSet id="20220526--0001-users_roles" author="ymironov">
+
+        <!-- Проверяем нет ли уже таблицы с таким названием -->
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users_roles"/>
+            </not>
+        </preConditions>
+
+        <!-- Создаем таблицу -->
+        <createTable tableName="users_roles">
+
+            <!-- Описываем колонки -->
+            <column name="id"
+                    type="NUMERIC(19,0)"
+                    autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="user_id" type="NUMERIC(19,0)">
+                <constraints nullable="false" foreignKeyName="fk_users_roles_user" references="users(id)"
+                             deleteCascade="true"/>
+            </column>
+
+            <column name="roles_id" type="NUMERIC(19,0)">
+                <constraints nullable="false" foreignKeyName="fk_users_roles_role" references="roles(id)"
+                             deleteCascade="true"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+
+</databaseChangeLog>
